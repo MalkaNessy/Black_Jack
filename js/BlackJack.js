@@ -1,14 +1,23 @@
 var score;
+var bet;
 var message;
 function setScore(newScore) {
 	score = newScore;
 	document.getElementById("innerScore").innerHTML = score+"";
 }
+
+function setBet(newBet) {
+	bet = newBet;
+	document.getElementById("innerBet").innerHTML = bet+"";
+}
 function setMessage(newMessage) {
 	message = newMessage;
 	document.getElementById("talk").innerHTML = message+"";
 }
-setScore(50);
+
+
+setScore(100);
+setBet(50);
 setMessage("hello");
 
 function getRandomInt(min,max) {
@@ -20,6 +29,20 @@ function getCard() {
 	var cards = desk.slice(0);
 	return cards[getRandomInt(0, cards.length - 1)];
 }
+ 
+ 
+ 
+
+function setCard (hand, div_id) {
+	console.log('setCard start');
+	card = hand[1];
+	
+	document.getElementById(div_id).innerHTML = '<img src="img/'+card+'" alt="2d" >';
+	console.log('setCard end, card: ' + card);
+}
+ 
+ 
+ 
  
 function getSum(hand) {
 	var sum=0;
@@ -62,10 +85,26 @@ function getStatus() {
  
  
 var dealer = [getCard()];
-var player = [getCard(), getCard(), getCard()];
-console.log("player: " + player);
+var player;
 
 
+function getHand (){
+	player = [getCard(), getCard(), getCard()];
+	console.log("getHand () start, player: " + player);
+}
+
+
+function drawHand (player){
+	console.log("getHand start: " + player);
+	setCard(player[0],"left_card" );
+	setCard(player[1],"center_card" );
+	setCard(player[2],"right_card" );
+}
+
+function play (){
+	getHand ();
+	drawHand (player);
+}
 
 if (getSum(player)== 21){
 	alert ('Дьявольское везение! Black Jack на раздаче!')

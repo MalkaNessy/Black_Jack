@@ -17,33 +17,49 @@
 
 <body> 
     <header>
-		<div id="header_image"><img src="img/dragon.jpg" alt="Dragon" > </div>
-		<h3>Dragon Poker</h3>
+		<div id="header_image"><img src="img/black.jpg" alt="blackJack" > </div>
+		<!-- <h3>Dragon Poker</h3> -->
 		<ul id="nav">
 				<li><a href="#">Rules</a></li>
-				<li><a href="#">Influencing factors</a></li>
-				<li><a href="#">How To Play Today</a></li>
+				<li><a href="#">Help</a></li>
 				<li><a href="#">About Us</a></li>
 		</ul>
 	</header>
 	<div style="clear: both;"> </div>
-	<div class="table">
-	<div class="score" id="score">Score: <div class="innerScore" id="innerScore">
-	</div></br>
-	</div>
-	<div class="table" id="table">
-	
-			<ul class="cards">
-					<li id="left_card"><img src="img/6_d.jpg" alt="2d" ></li>
-					<li id="center_card"><img src="img/q_d.jpg" alt="qd" ></li>
-					<li id="right_card"><img src="img/ace_d.jpg" alt="ad" ></li>
-			</ul>		
+	<div id="table" class="flex-container centred">
+		<div class="flex-item centred">
+				<div id="desk" onclick="play()"><img src="img/blackDesk.jpg" alt="Desk" > </div>
+		</div>	
+		<div class="flex-item centred" id="play">
+				<div id="in_play" >
+					<div class="who">Dealer:</div>
+					<ul id="dealer cards" class="cards">
+							<li id="left_card"><img src="img/ace_d.jpg" alt="2d" ></li>
+							<li id="center_card"><img src="img/ace_d.jpg" alt="qd" ></li>
+							<li id="right_card"><img src="img/ace_d.jpg" alt="ad" ></li>
+					</ul>		
+					
+					<div id="dialog">
+						<div id="talk" > hello!</div>
+						<div id="answer"> </div>
+					</div>
+					<div class="who">Player:</div>
+					<ul id="player cards" class="cards">
+							<li id="left_card"><img src="img/6_d.jpg" alt="2d" ></li>
+							<li id="center_card"><img src="img/q_d.jpg" alt="qd" ></li>
+							<li id="right_card"><img src="img/k_d.jpg" alt="ad" ></li>
+					</ul>
+				</div>
+		</div>
+		<div class="flex-item centred">
+				<div id="score" class="score" >Score: <div class="innerScore" id="innerScore"></div></br>Bet:</br><div class="innerScore" id="innerBet"></div></div>
+		</div>
 			
-			<div id="talk" > </div>		
-			<div class="desk"><a href="#"><img src="img/desk.jpg" alt="Desk" ></a> </div>			
-		
 	</div>
-	</div>				
+			
+		</div><!-- #table end flex-container end-->
+	
+				
 			
 	<footer><a href="#">&copy; 2017 Malka Korets </a>	 </footer>
  <script src="js/BlackJack.js"> </script> 
