@@ -174,8 +174,11 @@ TABLE
 	
 }
 .who {
-	color: #001a4c;
+	color: #f2e7bf;
 	font-weight: bold;
+}
+#dialog {
+	margin-top: 12px;
 }
 
 #talk {
@@ -187,19 +190,36 @@ TABLE
 	font-size: 1em;
 }
 
+#answer {
+	width: 80px;
+	margin: 0 auto;
+	/* display: none; */
+} 
+
+button {
+	height: 20px;
+	background-color: #001a4c;
+	color: #f2e7bf;
+	margin: 2px;
+}
+
 .cards {
 	text-align: center;
-	margin-top: 0px;
-	margin-bottom: 0px;
+	margin: 0px;
 	    -webkit-padding-start: 0;
 		
 }
 .cards li{
+	margin: 0;
 	display: inline-block;
 	padding: 6px;
-	
+	width: 77px;
+	height: 112px;
+	background-color: magenta;
 }
-
+.cards li img {
+	width: 50%;
+}
 
 
 .score {
@@ -211,23 +231,6 @@ TABLE
 }
 
 
-/****************************
-PAGE: ABOUT
-*****************************/
-
-.profile-photo {
-  display: block;
-  max-width: 150px;
-  margin: 0 auto 30px;
-  border-radius: 100%;
-}
-
-.p-about p {
-	color: #32673f; 
-	line-height: 1.4;
-	text-align  : justify;
-
-}
 /****************************
 PAGE: CONTACT
 *****************************/
