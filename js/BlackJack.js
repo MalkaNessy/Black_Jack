@@ -1,3 +1,5 @@
+var score;
+var bet;
 var message;
 var dealer;
 var player;
@@ -8,6 +10,18 @@ function setMessage(newMessage) {
 	message = newMessage;
 	document.getElementById("talk").innerHTML = message+"";
 }
+
+function setScore(newScore) {
+	score = newScore;
+	document.getElementById("innerScore").innerHTML = score+"";
+}
+function setBet(newBet) {
+	bet = newBet;
+	document.getElementById("innerBet").innerHTML = bet+"";
+}
+
+setScore(100);
+setBet(50);
 
 function getRandomInt(min,max) {
 	return Math.floor(Math.random()*(max-min+1))+min;
@@ -119,6 +133,7 @@ function play (){
 	drawHand (player, player_ul );
 	drawHand (dealer, dealer_ul );
 	if (getSum(player)== 21){
+		setScore( score + 100 );
 		setMessage("Дьявольское везение! Black Jack на раздаче!.. </br> To play again clkick on card deck.");
 		
 	} else {
@@ -156,7 +171,10 @@ function no(){
 	//дилер добирает карты
 	addDealer();
 	//проверяем количество очков
-	setMessage(getStatus());
+	
+	setMessage('Ready. ' + getStatus());
+	document.getElementById("answer").innerHTML = '<button id="end" onclick="checkScore()">to score</button>';
+	
 	console.log('no() end');
 }	
 
@@ -170,5 +188,31 @@ function yes(){
 		ifAdd();
 	console.log('yes() end. sumPlayer after push: ' + getSum(player));
 	
-	
+}
+
+//проверяем результат после всех доборов карт
+function checkScore (){
+	//удаляем кнопку
+	document.getElementById("answer").innerHTML = '';
+	//проверяем результат
+	var sumDealer = getSum(dealer);
+	var sumPlayer = getSum(player);
+			
+	if (sumPlayer == 21) {
+		setScore( score + 100 );
+		setMessage('You has Black Jack!' + getStatus());
+	} else if (sumDealer == 21) {
+		setScore( score - 20 );
+		setMessage('Dealer has Black Jack! ' + getStatus());
+	} else if (sumPlayer == sumDealer) {
+		setMessage('Dead heat! ' + getStatus());
+	} else if (sumPlayer > sumDealer) {
+		setScore( score + 50 );
+		setMessage('You win! :) ' + getStatus());
+	} else {
+		setScore( score -100 );
+		setMessage('You loos :( ' + getStatus());
+	}
+	console.log ("После подсчета очков - getStatus: " + getStatus() + " player: " + player);
+			
 }
