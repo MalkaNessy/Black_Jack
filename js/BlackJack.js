@@ -33,6 +33,7 @@ function getCard() {
 function setCard (oneCard) {
 	//console.log('setCard started oneCard:'+oneCard+" div_id:"+div_id)
 	var img_name = oneCard[1];
+	return img_name;
 	//document.getElementById(div_id).innerHTML = '<img src="img/'+img+'" alt="card" >';
 	console.log('setCard end, имя картинки: ' + img_name);
 }
@@ -52,8 +53,9 @@ function drawHand (hand, ul_id){
 	var html='';
 	for (var i=0; i<hand.length; i++){
 		console.log("for start");
-		var temp = player[i];
-		var img = temp[1];
+		var img = setCard(hand[i]);
+				/* var temp = player[i];
+				var img = temp[1]; */
 		console.log('img: '+ img);
 		html = html + ' <li><img src="img/' + img+ '" alt="2d" ></li>';
 		console.log("html end  " );
