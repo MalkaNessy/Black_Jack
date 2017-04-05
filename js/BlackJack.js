@@ -46,7 +46,7 @@ function getHand (){
 }
 
 // отрисовка карт раздачи дилера и игрока
-function drawHand (hand){
+function drawHand (hand, ul_id){
 	console.log("drawHand() start, hand =   " + hand );
 	console.log(" hand.length =   " + hand.length );
 	var html='';
@@ -58,16 +58,22 @@ function drawHand (hand){
 		html = html + ' <li><img src="img/' + img+ '" alt="2d" ></li>';
 		console.log("html end  " );
 	}
-	document.getElementById("player_cards").innerHTML = html;
+	document.getElementById(ul_id).innerHTML = html;
 		
 		console.log("drawHand() end  ");
 }
-
+var player_ul="player_cards";
+var dealer_ul="dealer_cards";
+/*
+function html(html, ul_id) {
+	document.getElementById(ul_id).innerHTML = html;
+} */
 
 function play (){
 	console.log('play() start');
 	getHand ();
-	drawHand (player);	
+	drawHand (player, player_ul );
+	drawHand (dealer, dealer_ul );	
 	console.log("play() end. getStatus:  " + getStatus());
 }
 
