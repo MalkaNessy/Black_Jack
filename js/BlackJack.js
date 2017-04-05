@@ -142,6 +142,7 @@ function ifAdd() {
 			setMessage(getStatus() +  "You have <21. Do you want to add card?");
 			document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
 		}else{
+			addDealer();
 			setMessage('Ready. ' + getStatus());
 			document.getElementById("answer").innerHTML = '<button id="end" onclick="checkScore()">to score</button>';
 		console.log('ifAdd() end. sum player: ' + getSum(player) + ' sum dealer: ' + getSum(dealer));
