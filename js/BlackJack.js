@@ -1,6 +1,8 @@
 var message;
 var dealer;
 var player;
+var player_ul="player_cards"; // id элемента, куда вставлять карты игрока
+var dealer_ul="dealer_cards"; // id элемента, куда вставлять карты диллера
 
 function setMessage(newMessage) {
 	message = newMessage;
@@ -31,10 +33,8 @@ function getCard() {
 
 //получает карту и возвращает имя картинки
 function setCard (oneCard) {
-	//console.log('setCard started oneCard:'+oneCard+" div_id:"+div_id)
 	var img_name = oneCard[1];
 	return img_name;
-	//document.getElementById(div_id).innerHTML = '<img src="img/'+img+'" alt="card" >';
 	console.log('setCard end, имя картинки: ' + img_name);
 }
 
@@ -49,36 +49,30 @@ function getHand (){
 // отрисовка карт раздачи дилера и игрока
 function drawHand (hand, ul_id){
 	console.log("drawHand() start, hand =   " + hand );
-	console.log(" hand.length =   " + hand.length );
+	console.log("hand ul_id =   " + ul_id );
 	var html='';
 	for (var i=0; i<hand.length; i++){
-		console.log("for start");
 		var img = setCard(hand[i]);
-				/* var temp = player[i];
-				var img = temp[1]; */
-		console.log('img: '+ img);
 		html = html + ' <li><img src="img/' + img+ '" alt="2d" ></li>';
-		console.log("html end  " );
 	}
 	document.getElementById(ul_id).innerHTML = html;
-		
 		console.log("drawHand() end  ");
 }
-var player_ul="player_cards";
-var dealer_ul="dealer_cards";
-/*
-function html(html, ul_id) {
-	document.getElementById(ul_id).innerHTML = html;
-} */
 
-function play (){
-	console.log('play() start');
-	getHand ();
-	drawHand (player, player_ul );
-	drawHand (dealer, dealer_ul );	
-	console.log("play() end. getStatus:  " + getStatus());
-}
-
+// показывает статус: названия карт игрока и диллера, очки, счет 
+function getStatus() {
+	var dlr = [];
+	var plr = [];
+	for (i=0; i<dealer.length; i++){
+		dlr.push(dealer[i][0]);
+	}
+	for (i=0; i<player.length; i++){
+		plr.push(player[i][0]);
+	}
+	console.log ("getStatus() dlr: " + dlr + ' ' + "plr: " + plr );
+	setMessage(' Карты игрока: ' + plr.join(' ') + ' сумма очков игрока: ' + getSum(player)+ '</br> Карты диллера: ' + dlr.join(', ') + ' Cумма очков диллера: ' + getSum(dealer));
+	return ' Карты игрока: ' + plr.join(' ') + ' сумма очков игрока: ' + getSum(player)+ ' Карты диллера: ' + dlr.join(', ') + ' Cумма очков диллера: ' + getSum(dealer);
+} 
 
 
 //считает сумму карт
@@ -87,9 +81,9 @@ function getSum(hand) {
 	//сначала считаем все карты, кроме тузов
 	for (var i=0; i<hand.length;i++) {
 		var card = hand[i];
-		if (card[0]!='A') {
-			if (card[0]=='J' || card[0] == 'Q' || card[0] == 'K') {
-				sum=sum+10;			
+		if (card[0].substring(0,1)!='A') {
+			if (isNaN(parseInt(card[0])) ) {
+				sum=sum+10;		
 			} else {
 				sum=sum + parseInt(card[0]);
 			}
@@ -98,7 +92,7 @@ function getSum(hand) {
 	// туз считается как 1, если текущая сумма меньше 21, если больше - то как 11	
 	for (var i=0; i<hand.length; i++) {
 		var card = hand[i];
-		if (card[0] == 'A'){
+		if (card[0].substring(0,1) == 'A'){
 			if (sum>10) {
 				sum = sum + 1;
 			} else {
@@ -110,17 +104,11 @@ function getSum(hand) {
 	return sum;
 } 
 
-// показывает названия карт игрока и диллера
-function getStatus() {
-	var dlr = [];
-	var plr = [];
-	for (i=0; i<dealer.length; i++){
-		dlr.push(dealer[i][0]);
-	}
-	for (i=0; i<player.length; i++){
-		plr.push(player[i][0]);
-	}
-	console.log ("getStatus() dlr: " + dlr + ' ' + "plr: " + plr );
-	return 'Dealer has: ' + dlr.join(', ') + ' Игрок: ' + plr.join(' ');
-} 
+function play (){
+	console.log('play() start');
+	getHand ();
+	drawHand (player, player_ul );
+	drawHand (dealer, dealer_ul );	
+	console.log("play() end. getStatus:  " + getStatus());
+}
 
