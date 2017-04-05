@@ -108,10 +108,18 @@ function getSum(hand) {
 			} else {
 				sum=sum + parseInt(card[0]);
 			}
+		} else {
+			if (sum>10) {
+				sum = sum + 1;
+			} else {
+				sum = sum + 11;
+			}
 		}
+		
+		
 	}
 	// туз считается как 1, если текущая сумма меньше 21, если больше - то как 11	
-	for (var i=0; i<hand.length; i++) {
+	/* for (var i=0; i<hand.length; i++) {
 		var card = hand[i];
 		if (card[0].substring(0,1) == 'A'){
 			if (sum>10) {
@@ -120,7 +128,7 @@ function getSum(hand) {
 				sum = sum + 11;
 			}
 		}
-	}
+	} */
 	// В случае двух тузов первый будет стоить 11, а второй - 1
 	return sum;
 } 
