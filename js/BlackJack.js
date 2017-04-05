@@ -59,6 +59,13 @@ function drawHand (hand, ul_id){
 		console.log("drawHand() end  ");
 }
 
+function addDealer(){
+	console.log("addDealer() start, dealer: " + dealer)
+	do {dealer.push(getCard());
+	drawHand(dealer, dealer_ul)
+	}while (getSum(dealer)<17)
+		console.log("addDealer() end, dealer: " + dealer)
+}
 // показывает статус: названия карт игрока и диллера, очки, счет 
 function getStatus() {
 	var dlr = [];
@@ -108,7 +115,8 @@ function play (){
 	console.log('play() start');
 	getHand ();
 	drawHand (player, player_ul );
-	drawHand (dealer, dealer_ul );	
+	drawHand (dealer, dealer_ul );
+addDealer();	
 	console.log("play() end. getStatus:  " + getStatus());
 }
 
