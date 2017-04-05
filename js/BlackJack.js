@@ -66,6 +66,7 @@ function addDealer(){
 	}while (getSum(dealer)<17)
 		console.log("addDealer() end, dealer: " + dealer)
 }
+
 // показывает статус: названия карт игрока и диллера, очки, счет 
 function getStatus() {
 	var dlr = [];
@@ -77,8 +78,7 @@ function getStatus() {
 		plr.push(player[i][0]);
 	}
 	console.log ("getStatus() dlr: " + dlr + ' ' + "plr: " + plr );
-	setMessage(' Карты игрока: ' + plr.join(' ') + ' сумма очков игрока: ' + getSum(player)+ '</br> Карты диллера: ' + dlr.join(', ') + ' Cумма очков диллера: ' + getSum(dealer));
-	return ' Карты игрока: ' + plr.join(' ') + ' сумма очков игрока: ' + getSum(player)+ ' Карты диллера: ' + dlr.join(', ') + ' Cумма очков диллера: ' + getSum(dealer);
+	return ' Карты игрока: ' + plr.join(' ') + ' Cумма очков игрока: ' + getSum(player)+ '<br> Карты диллера: ' + dlr.join(', ') + ' Cумма очков диллера: ' + getSum(dealer);
 } 
 
 
@@ -113,10 +113,28 @@ function getSum(hand) {
 
 function play (){
 	console.log('play() start');
+	//перемешиваем колоду перед каждой новой раздачей
+	cards = deck.slice(0);
 	getHand ();
 	drawHand (player, player_ul );
 	drawHand (dealer, dealer_ul );
-addDealer();	
-	console.log("play() end. getStatus:  " + getStatus());
+	if (getSum(player)== 21){
+		setMessage("Дьявольское везение! Black Jack на раздаче!.. </br> To play again clkick on card deck.");
+		
+	} else {
+		setMessage(getStatus() +  "</br>You have <21. Do you want to add card?");
+		document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
+	}
+	console.log('play() end');
 }
 
+function no(){
+	console.log('no() start');
+	//
+	document.getElementById("answer").innerHTML = '';
+		//дилер добирает карты
+		addDealer();
+		//проверяем счет
+		setMessage(getStatus());
+		console.log('no() end');
+	}	
