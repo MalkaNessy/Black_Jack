@@ -140,13 +140,6 @@ function play (){
 		setMessage(getStatus() +  "</br>You have < 21. Do you want to add card?");
 		document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
 		
-		/* if (getSum(player)<21){
-			setMessage(getStatus() +  "</br>You have <21. Do you want to add card?");
-			document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
-		} else {
-			setMessage('Ready. ' + getStatus());
-			document.getElementById("answer").innerHTML = '<button id="end" onclick="checkScore()">to score</button>';
-		} */
 	}
 	console.log('play() end');
 }
@@ -191,7 +184,7 @@ function yes(){
 }
 
 //проверяем результат после всех доборов карт
-function checkScore (){
+function checkScore() {
 	//удаляем кнопку
 	document.getElementById("answer").innerHTML = '';
 	//проверяем результат
