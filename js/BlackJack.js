@@ -30,39 +30,44 @@ function getCard() {
 }
 
 //получает карту и возвращает имя картинки
-function setCard (oneCard, div_id ) {
-	var img = oneCard[1];
-	document.getElementById(div_id).innerHTML = '<img src="img/'+img+'" alt="card" >';
-	console.log('setCard end, имя картинки: ' + img);
+function setCard (oneCard) {
+	//console.log('setCard started oneCard:'+oneCard+" div_id:"+div_id)
+	var img_name = oneCard[1];
+	//document.getElementById(div_id).innerHTML = '<img src="img/'+img+'" alt="card" >';
+	console.log('setCard end, имя картинки: ' + img_name);
 }
 
 // раздача карт, создание "рук" дилера и игрока
 function getHand (){
 	console.log("getHand() start  ");
 	dealer = [getCard()];
-	player = [getCard(), getCard(), getCard()];
+	player = [getCard(), getCard()];
 	console.log("getHand() раздача завершена:  " + getStatus());
 }
 
 // отрисовка карт раздачи дилера и игрока
 function drawHand (hand){
-	console.log("drawHand() start  ");
-	var id;
-	var i;
-	for (i=0; i<hand.length; i++){
-		id = i.toString();
-		console.log("id:  " + id);
-		setCard(player[i],id );
-		document.getElementById("player_cards").innerHTML =' <li id="pl_' + id+ '"><img src="img/' + setCard(player[i],id )+ '" alt="2d" ></li>';
-		
+	console.log("drawHand() start, hand =   " + hand );
+	console.log(" hand.length =   " + hand.length );
+	var html='';
+	for (var i=0; i<hand.length; i++){
+		console.log("for start");
+		var temp = player[i];
+		var img = temp[1];
+		console.log('img: '+ img);
+		html = html + ' <li><img src="img/' + img+ '" alt="2d" ></li>';
+		console.log("html end  " );
 	}
-	console.log("drawHand() end  ");
+	document.getElementById("player_cards").innerHTML = html;
+		
+		console.log("drawHand() end  ");
 }
+
 
 function play (){
 	console.log('play() start');
 	getHand ();
-	drawHand (player);
+	drawHand (player);	
 	console.log("play() end. getStatus:  " + getStatus());
 }
 
@@ -98,7 +103,8 @@ function getSum(hand) {
 } 
 
 // показывает названия карт игрока и диллера
-function getStatus() {var dlr = [];
+function getStatus() {
+	var dlr = [];
 	var plr = [];
 	for (i=0; i<dealer.length; i++){
 		dlr.push(dealer[i][0]);
