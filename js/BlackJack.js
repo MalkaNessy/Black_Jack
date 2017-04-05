@@ -122,19 +122,52 @@ function play (){
 		setMessage("Дьявольское везение! Black Jack на раздаче!.. </br> To play again clkick on card deck.");
 		
 	} else {
-		setMessage(getStatus() +  "</br>You have <21. Do you want to add card?");
+		setMessage(getStatus() +  "</br>You have < 21. Do you want to add card?");
 		document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
+		
+		/* if (getSum(player)<21){
+			setMessage(getStatus() +  "</br>You have <21. Do you want to add card?");
+			document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
+		} else {
+			setMessage('Ready. ' + getStatus());
+			document.getElementById("answer").innerHTML = '<button id="end" onclick="checkScore()">to score</button>';
+		} */
 	}
 	console.log('play() end');
 }
 
+function ifAdd() {
+	console.log("ifAdd() start");
+		if (getSum(player)<21){
+			setMessage(getStatus() +  "You have <21. Do you want to add card?");
+			document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
+		}else{
+			setMessage('Ready. ' + getStatus());
+			document.getElementById("answer").innerHTML = '<button id="end" onclick="checkScore()">to score</button>';
+		console.log('ifAdd() end. sum player: ' + getSum(player) + ' sum dealer: ' + getSum(dealer));
+		}
+}
+
 function no(){
 	console.log('no() start');
-	//
+	//убираем кнопку "посчитать"
 	document.getElementById("answer").innerHTML = '';
-		//дилер добирает карты
-		addDealer();
-		//проверяем счет
-		setMessage(getStatus());
-		console.log('no() end');
-	}	
+	//дилер добирает карты
+	addDealer();
+	//проверяем количество очков
+	setMessage(getStatus());
+	console.log('no() end');
+}	
+
+//сдаем карту игроку 
+function yes(){
+	console.log('yes() start');
+	document.getElementById("answer").innerHTML = '';
+		player.push(getCard());
+		drawHand(player, player_ul);
+	console.log('yes() end. player after push: ' + player);
+		ifAdd();
+	console.log('yes() end. sumPlayer after push: ' + getSum(player));
+	
+	
+}
