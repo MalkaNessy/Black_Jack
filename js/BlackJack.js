@@ -21,7 +21,7 @@ function setBet(newBet) {
 }
 
 setScore(100);
-//setBet(50);
+
 
 function getRandomInt(min,max) {
 	return Math.floor(Math.random()*(max-min+1))+min;
@@ -126,13 +126,14 @@ function play (){
 	console.log('play() start');
 	//перемешиваем колоду перед каждой новой раздачей
 	cards = deck.slice(0);
+	bet = 0;
 	getHand ();
 	drawHand (player, player_ul );
 	drawHand (dealer, dealer_ul );
 	if (getSum(player)== 21){
-		setScore( score + 100 );
+		setScore( bet*2 );
 		setMessage("Дьявольское везение! Black Jack на раздаче!.. </br> To play again clkick on card deck.");
-		
+		document.getElementById("setBet").style.display = "block";
 	} else {
 		setMessage(getStatus() +  "</br>You have < 21. Do you want to add card?");
 		document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
@@ -185,22 +186,25 @@ function checkScore() {
 	var sumPlayer = getSum(player);
 			
 	if (sumPlayer == 21) {
-		setScore( score + 100 );
-		setMessage('You has Black Jack!' + getStatus());
-	} else if (sumDealer == 21) {
-		setScore( score - 20 );
-		setMessage('Dealer has Black Jack! ' + getStatus());
+		setScore( score + bet );
+		setMessage('You has 21! score + bet' + getStatus());
+	} else if (sumDealer == 21 && sumPlayer == 21) {
+		setScore( score - bet );
+		setMessage('Dealer has Black Jack! score - bet' + getStatus());
 	} else if (sumPlayer == sumDealer) {
-		setMessage('Dead heat! ' + getStatus());
-	} else if (sumPlayer > sumDealer) {
-		setScore( score + 50 );
-		setMessage('You win! :) ' + getStatus());
-	} else {
-		setScore( score -100 );
-		setMessage('You loos :( ' + getStatus());
+		setMessage('Dead heat! nothing happens' + getStatus());
+	} else if (sumPlayer<21 && sumPlayer> sumDealer) {
+		setScore( score + bet );
+		setMessage('You win! :) score + bet' + getStatus());
+	} else if (sumPlayer<21 && sumDealer>21) {
+		setScore( score + bet );
+		setMessage('You win! :) score + bet' + getStatus());
+	}else {
+		setScore( score - bet);
+		setMessage('You loos :( score - bet' + getStatus());
 	}
 	console.log ("После подсчета очков - getStatus: " + getStatus() + " player: " + player);
-			
+	document.getElementById("setBet").style.display = "block";		
 }
 
 
@@ -209,6 +213,8 @@ function setBet() {
 	bet = document.getElementById("toBet").value;
 	document.getElementById("toBet").value = "";
 	document.getElementById("innerBet").innerHTML = bet;
+	document.getElementById("setBet").style.display = "none";
 	bet = parseInt(bet);
+	setScore((score - bet));
 }
 
