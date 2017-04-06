@@ -43,8 +43,8 @@ function getCard() {
 }
  
 //отрисовывает полученную карту в полученный div_id 
-function setCard (hand, div_id) {
-	card = hand[1];
+function setCard (oneCard, div_id) {
+	card = oneCard[1];
 	document.getElementById(div_id).innerHTML = '<img src="img/'+card+'" alt="card" >';
 	console.log('setCard end, отрисованная карта: ' + card);
 }

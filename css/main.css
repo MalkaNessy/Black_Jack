@@ -231,6 +231,11 @@ button {
 	/* border: 2px solid magenta; */
 }
 
+input#toBet {
+ width: 35px;
+ padding-left: 6px; 
+ padding-right:6px; 
+}
 
 /****************************
 PAGE: CONTACT

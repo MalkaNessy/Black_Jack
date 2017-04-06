@@ -21,7 +21,7 @@ function setBet(newBet) {
 }
 
 setScore(100);
-setBet(50);
+//setBet(50);
 
 function getRandomInt(min,max) {
 	return Math.floor(Math.random()*(max-min+1))+min;
@@ -118,17 +118,6 @@ function getSum(hand) {
 		
 		
 	}
-	// туз считается как 1, если текущая сумма меньше 21, если больше - то как 11	
-	/* for (var i=0; i<hand.length; i++) {
-		var card = hand[i];
-		if (card[0].substring(0,1) == 'A'){
-			if (sum>10) {
-				sum = sum + 1;
-			} else {
-				sum = sum + 11;
-			}
-		}
-	} */
 	// В случае двух тузов первый будет стоить 11, а второй - 1
 	return sum;
 } 
@@ -152,18 +141,6 @@ function play (){
 	console.log('play() end');
 }
 
-function ifAdd() {
-	console.log("ifAdd() start");
-		if (getSum(player)<21){
-			setMessage(getStatus() +  "You have <21. Do you want to add card?");
-			document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
-		}else{
-			addDealer();
-			setMessage('Ready. ' + getStatus());
-			document.getElementById("answer").innerHTML = '<button id="end" onclick="checkScore()">to score</button>';
-		console.log('ifAdd() end. sum player: ' + getSum(player) + ' sum dealer: ' + getSum(dealer));
-		}
-}
 
 function no(){
 	console.log('no() start');
@@ -183,10 +160,18 @@ function no(){
 function yes(){
 	console.log('yes() start');
 	document.getElementById("answer").innerHTML = '';
-		player.push(getCard());
-		drawHand(player, player_ul);
+	player.push(getCard());
+	drawHand(player, player_ul);
 	console.log('yes() end. player after push: ' + player);
-		ifAdd();
+	if (getSum(player)<21){
+			setMessage(getStatus() +  "You have <21. Do you want to add card?");
+			document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
+	}else{
+			addDealer();
+			setMessage('Ready. ' + getStatus());
+			document.getElementById("answer").innerHTML = '<button id="end" onclick="checkScore()">to score</button>';
+			console.log('ifAdd() end. sum player: ' + getSum(player) + ' sum dealer: ' + getSum(dealer));
+	}
 	console.log('yes() end. sumPlayer after push: ' + getSum(player));
 	
 }
@@ -217,3 +202,13 @@ function checkScore() {
 	console.log ("После подсчета очков - getStatus: " + getStatus() + " player: " + player);
 			
 }
+
+
+
+function setBet() {
+	bet = document.getElementById("toBet").value;
+	document.getElementById("toBet").value = "";
+	document.getElementById("innerBet").innerHTML = bet;
+	bet = parseInt(bet);
+}
+
