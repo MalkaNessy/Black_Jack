@@ -37,7 +37,7 @@ var cards = deck.slice(0);
 //забирает случайную карту из колоды и возвращает ее
 function getCard() {
 	var temp = cards[getRandomInt(0, cards.length - 1)];
-	for (i=0; i<cards.length; i++){
+	for (var i=0; i<cards.length; i++){
 		if (temp == cards[i]) {
 			cards.splice(i,1);
 		}
@@ -126,18 +126,21 @@ function play (){
 	console.log('play() start');
 	//перемешиваем колоду перед каждой новой раздачей
 	cards = deck.slice(0);
-	bet = 0;
-	getHand ();
-	drawHand (player, player_ul );
-	drawHand (dealer, dealer_ul );
-	if (getSum(player)== 21){
-		setScore( bet*2 );
-		setMessage("Дьявольское везение! Black Jack на раздаче!.. </br> To play again clkick on card deck.");
-		document.getElementById("setBet").style.display = "block";
+	if(bet>0){
+		getHand ();
+		drawHand (player, player_ul );
+		drawHand (dealer, dealer_ul );
+		if (getSum(player)== 21){
+			setScore( bet*2 );
+			setMessage("You're lucky! Black Jack!.. </br> To play again click on card deck.");
+			document.getElementById("setBet").style.display = "block";
+		} else {
+			setMessage("You have < 21. Do you want to add card?");
+			document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
+			
+		}
 	} else {
-		setMessage(getStatus() +  "</br>You have < 21. Do you want to add card?");
-		document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
-		
+		setMessage("Set bet before starting play");
 	}
 	console.log('play() end');
 }
@@ -151,7 +154,7 @@ function no(){
 	addDealer();
 	//проверяем количество очков
 	
-	setMessage('Ready. ' + getStatus());
+	setMessage('Ready. ' );
 	document.getElementById("answer").innerHTML = '<button id="end" onclick="checkScore()">to score</button>';
 	
 	console.log('no() end');
@@ -165,11 +168,11 @@ function yes(){
 	drawHand(player, player_ul);
 	console.log('yes() end. player after push: ' + player);
 	if (getSum(player)<21){
-			setMessage(getStatus() +  "You have <21. Do you want to add card?");
+			setMessage("You have <21. Do you want to add card?");//getStatus() +  
 			document.getElementById("answer").innerHTML = '<button id="yes" onclick="yes()">Yes</button><button id="no" onclick="no()">No</button> ';
 	}else{
 			addDealer();
-			setMessage('Ready. ' + getStatus());
+			setMessage('Ready. ' );//+ getStatus()
 			document.getElementById("answer").innerHTML = '<button id="end" onclick="checkScore()">to score</button>';
 			console.log('ifAdd() end. sum player: ' + getSum(player) + ' sum dealer: ' + getSum(dealer));
 	}
@@ -187,21 +190,21 @@ function checkScore() {
 			
 	if (sumPlayer == 21) {
 		setScore( score + bet );
-		setMessage('You has 21! score + bet' + getStatus());
+		setMessage('You has 21! ' );
 	} else if (sumDealer == 21 && sumPlayer == 21) {
 		setScore( score - bet );
-		setMessage('Dealer has Black Jack! score - bet' + getStatus());
+		setMessage('Dealer has Black Jack!' );
 	} else if (sumPlayer == sumDealer) {
-		setMessage('Dead heat! nothing happens' + getStatus());
+		setMessage('Dead heat! nothing happens' );
 	} else if (sumPlayer<21 && sumPlayer> sumDealer) {
 		setScore( score + bet );
-		setMessage('You win! :) score + bet' + getStatus());
+		setMessage('You win! :) ' );
 	} else if (sumPlayer<21 && sumDealer>21) {
 		setScore( score + bet );
-		setMessage('You win! :) score + bet' + getStatus());
+		setMessage('You win! :) ' );
 	}else {
 		setScore( score - bet);
-		setMessage('You loos :( score - bet' + getStatus());
+		setMessage('You loose :( ' );
 	}
 	console.log ("После подсчета очков - getStatus: " + getStatus() + " player: " + player);
 	document.getElementById("setBet").style.display = "block";		
@@ -209,12 +212,20 @@ function checkScore() {
 
 
 
-function setBet() {
+ function setBet() {
 	bet = document.getElementById("toBet").value;
-	document.getElementById("toBet").value = "";
-	document.getElementById("innerBet").innerHTML = bet;
-	document.getElementById("setBet").style.display = "none";
-	bet = parseInt(bet);
-	setScore((score - bet));
+	console.log('bet: ' + bet + ' inNaN: '+ isNaN(bet));
+	if(isNormalInteger(bet)){
+		
+		document.getElementById("toBet").value = "";
+		document.getElementById("innerBet").innerHTML = bet;
+		document.getElementById("setBet").style.display = "none";
+		bet = parseInt(bet);
+		setScore((score - bet));
+	}
 }
 
+function isNormalInteger(str) {
+    var n = Math.floor(Number(str));
+    return String(n) === str && n >= 0;
+}
