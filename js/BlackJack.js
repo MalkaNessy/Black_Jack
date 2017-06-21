@@ -6,15 +6,19 @@ var player;
 var player_ul="player_cards"; // id элемента, куда вставлять карты игрока
 var dealer_ul="dealer_cards"; // id элемента, куда вставлять карты диллера
 
+//принимает текст, помещает в определенный див и показывает
 function setMessage(newMessage) {
 	message = newMessage;
 	document.getElementById("talk").innerHTML = message+"";
 }
 
+//принимает число, обновляет глобальную переменную и показывает количество очков игрока 
 function setScore(newScore) {
 	score = newScore;
 	document.getElementById("innerScore").innerHTML = score+"";
 }
+
+// принимает число, обновляет глобальную переменную и показывает размер ставки
 function setBet(newBet) {
 	bet = newBet;
 	document.getElementById("innerBet").innerHTML = bet+"";
@@ -22,16 +26,19 @@ function setBet(newBet) {
 
 setScore(100);
 
-
+//выдает случайное число в заданном промежутке
 function getRandomInt(min,max) {
 	return Math.floor(Math.random()*(max-min+1))+min;
 }
 
+//полный список карт колоды
 var deck = [ ['6d', '6_d.jpg'], ['7d', '7_d.jpg'], ['8d', '8_d.jpg'], ['9d', '9_d.jpg'], ['A_d', 'ace_d.jpg'], ['J_d', 'j_d.jpg'], ['Q_d', 'q_d.jpg'], ['K_d', 'k_d.jpg'],
 ['6h', '6_h.jpg'], ['7h', '7_h.jpg'], ['8h', '8_h.jpg'], ['9h', '9_h.jpg'], ['A_h', 'ace_h.jpg'], ['J_h', 'j_h.jpg'], ['Q_h', 'q_h.jpg'], ['K_h', 'k_h.jpg'],
 ['6c', '6_c.jpg'], ['7c', '7_c.jpg'], ['8c', '8_c.jpg'], ['9c', '9_c.jpg'], ['A_c', 'ace_c.jpg'], ['J_c', 'j_c.jpg'], ['Q_c', 'q_c.jpg'], ['K_c', 'k_c.jpg'],
 ['6s', '6_s.jpg'], ['7s', '7_s.jpg'], ['8s', '8_s.jpg'], ['9s', '9_s.jpg'], ['A_s', 'ace_s.jpg'], ['J_s', 'j_s.jpg'], ['Q_s', 'q_s.jpg'], ['K_s', 'k_s.jpg'],
 ];
+
+//"копия", с которой работаем
 var cards = deck.slice(0);
 
 //забирает случайную карту из колоды и возвращает ее
@@ -73,6 +80,7 @@ function drawHand (hand, ul_id){
 		console.log("drawHand() end  ");
 }
 
+// раздает карты дилеру
 function addDealer(){
 	console.log("addDealer() start, dealer: " + dealer)
 	do {dealer.push(getCard());
@@ -122,6 +130,7 @@ function getSum(hand) {
 	return sum;
 } 
 
+// начало игры
 function play (){
 	console.log('play() start');
 	//перемешиваем колоду перед каждой новой раздачей
@@ -145,7 +154,7 @@ function play (){
 	console.log('play() end');
 }
 
-
+// если игрок не хочет брать дополнительную карту
 function no(){
 	console.log('no() start');
 	//убираем кнопку "посчитать"
@@ -211,7 +220,7 @@ function checkScore() {
 }
 
 
-
+// берет число (сумма ставки) из инпута, считает ставку и общее количество очков
  function setBet() {
 	bet = document.getElementById("toBet").value;
 	console.log('bet: ' + bet + ' inNaN: '+ isNaN(bet));
@@ -225,7 +234,12 @@ function checkScore() {
 	}
 }
 
+// проверяет или в поле "ставка" было введено число
 function isNormalInteger(str) {
     var n = Math.floor(Number(str));
     return String(n) === str && n >= 0;
 }
+
+
+
+

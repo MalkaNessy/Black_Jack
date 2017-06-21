@@ -66,6 +66,18 @@ h3 {
 float: left;
 }
 
+.overlay {
+	width: 970px;
+	min-height: 600px;
+	background-color: yellow;
+	border: 3px solid red;
+	
+}
+.overlay  img {
+	float: right;
+	width: 30px;
+	height: 30px;
+}
 
 /****************************
 NAVIGATION
@@ -236,6 +248,11 @@ button {
 #setBet {
  display: block;
 }
+
+
+
+
+
 /****************************
 PAGE: CONTACT
 *****************************/
