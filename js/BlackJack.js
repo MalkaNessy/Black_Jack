@@ -6,6 +6,8 @@ var player;
 var player_ul="player_cards"; // id элемента, куда вставлять карты игрока
 var dealer_ul="dealer_cards"; // id элемента, куда вставлять карты диллера
 
+
+
 //принимает текст, помещает в определенный див и показывает
 function setMessage(newMessage) {
 	message = newMessage;
@@ -240,6 +242,28 @@ function isNormalInteger(str) {
     return String(n) === str && n >= 0;
 }
 
-
-
-
+$(document).ready(function()
+{
+	
+	var $btn = $('<img src="img/btn.jpg">'); // create close-button
+	var $text = $('<div class="text">fdfdfdfdfdfdf</div>'); //create text-window
+	
+	$($text).append($btn); //add close btn	
+	$(".overlay").append($text); //Add text-window to overlay
+	
+	//Show the overlay.
+	$("#nav li ").click(function(){
+		console.log ("clicked on nav.li id: " + this.id);
+				
+		
+		//$($text).load(this.id+".html"); // add text to text-window
+		
+		$(".overlay").show();
+	});
+	
+	$(".text img").click(function(){
+		//Hide the overlay
+		$(".overlay").hide();
+	});
+//document.getElementByID("rules").innerHTML = "rules rules rules rules rules rules rules";
+});
