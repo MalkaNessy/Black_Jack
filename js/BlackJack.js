@@ -243,27 +243,58 @@ function isNormalInteger(str) {
 }
 
 $(document).ready(function()
-{
-	
+{	
 	var $btn = $('<img src="img/btn.jpg">'); // create close-button
-	var $text = $('<div class="text">fdfdfdfdfdfdf</div>'); //create text-window
 	
-	$($text).append($btn); //add close btn	
-	$(".overlay").append($text); //Add text-window to overlay
+	var message = "ffffffff";
+	var rules ='<h4>Rules of this game<h4>'+
+		'<ol>'+
+			'<li>Сделайте ставку: введие в поле количество игровых долларов. Изначально у вас есть 100.</li>'+
+			'<li>Нажмите на изображение колоды с левой стороны.</li>'+
+			'<li>Вы получили две карты, сумма которых либо равна 21, либо меньше. Если вы получили 21 - у вас BlackJack, вы выиграли.'+
+			'Если меньше 21 - вы можете взять дополнительную карту, или отказаться от этого.'+ 
+			'</li>'+
+			'<li>После того, как сумма очков ваших карт достигла или превысила 21, карты берет дилер.</li>'+
+			'<li>Нажмите на кнопку "to score"</li>'+
+			'<li>Вы выиграли, если:'+ 
+				'<ul>'+
+					'<li>вы набрали ровно 21 очко</li>'+
+					'<li>у вас меньше 21 очка, но у дилера еще меньше, чем у вас</li>'+
+					'<li>у вас меньше 21 очка, а у дилера больше 21 очка</li>'+
+				'</ul>'+
+			'</li>'+
+			'<li>Чтобы сыграть в следующую игру, нажмите на изображение колоды. </li>'+
+			'<p>Удачи!<p>'+
+		'<ol>';
+	var help = "help ";
+	var about = "about us  ";
+	
+	var menu_list = {"rules":rules, "help":help, "about":about};
+	
+	var $text = $('<div class="text">'+ message+'</div>'); //create text-window
+	
+	//$($text).prepend($btn); //add close btn
+	$("#overlay").prepend($btn);
+	$("#overlay").append($text); //Add text-window to overlay
 	
 	//Show the overlay.
 	$("#nav li ").click(function(){
 		console.log ("clicked on nav.li id: " + this.id);
+		message = menu_list[this.id];
+		console.log ("message = " + message);
 				
+		$text.html(message);
+		//$text.prepend($btn);
 		
-		//$($text).load(this.id+".html"); // add text to text-window
-		
-		$(".overlay").show();
+		console.log ("$text = " + $text);
+		$("#overlay").show();
 	});
 	
-	$(".text img").click(function(){
+	$("#overlay img").click(function(){
 		//Hide the overlay
-		$(".overlay").hide();
+		$("#overlay").hide();
 	});
-//document.getElementByID("rules").innerHTML = "rules rules rules rules rules rules rules";
+
+	//$($text).load(this.id+".html"); // add text to text-window
+	//document.getElementByID("rules").innerHTML = "rules rules rules rules rules rules rules";
 });

@@ -69,28 +69,40 @@ h3 {
 float: left;
 }
 
-.overlay {
+#overlay {
 	display:none;
 	position:absolute;
   
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -45%); 
+    transform: translate(-50%, -45%);
+	background-color: white;	
 	
 }
 .text {
 	width: 850px;
-	min-height: 300px;
+	min-height: 400px;
 	background-color: white;
 	/* border: 3px solid red; */
-	text-align: center;
+	text-align: left;
 	position: relative;
-	color: black;
+	color: #002800;
+	line-height: 1.5;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 25px;
 }
-.text  img {
+
+.text li{
+	
+}
+
+
+#overlay  img {
 	float: right;
 	width: 25px;
 	height: 25px;
+	
 }
 /* #overlay {
   background:rgba(0,0,0,0.7);
@@ -102,9 +114,7 @@ float: left;
   display:none;
   text-align:center;
 } */
-#rules {
-	/* background-color: red;  */
-}
+
 
 /****************************
 NAVIGATION
