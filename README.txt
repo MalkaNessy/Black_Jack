@@ -1,1 +1,0 @@
-file:///Z:/home/test1.ru/www/BlackJack/index.html
